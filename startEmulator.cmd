@@ -19,17 +19,17 @@ for /F %%i in ('emulator -avd -list-avds') do (
 
 :ADB_START
 REM ===== Starting ADB Server
-call adb start-server >nul 2>&1 
+call adb start-server >nul 2>&1
 
-REM ===== Populating Menu =====
 :MENU
+REM ===== Populating Menu =====
 cls
 color %colNormal%
 echo ..................................................
 echo Choose emulator to run:
 echo.
 for /L %%i in (1, 1, %TOTAL_COUNT%) do (
-    echo %%i !EMULATORS[%%i]! 
+    echo %%i !EMULATORS[%%i]!
 )
 echo.
 echo A - Start All
@@ -49,7 +49,7 @@ REM ===== Validating User Input =====
 REM ----- check if input is number & valid -----
 set /A isNum=%Choice% 2>nul
 if %isNum%==%Choice% (
-    if %isNum% LEQ %TOTAL_COUNT% (
+    if %isNum% LEQ %TOTAL_COUNT%(
 	if %isNum% GTR 0 ( 
             goto START_EMULATOR
         )
@@ -58,7 +58,7 @@ if %isNum%==%Choice% (
     echo Wrong Emulator Number!
     goto SMTH_GONE_WRONG
 )
-REM ----- check if input is valid character ----- 
+REM ----- check if input is valid character -----
 if /I %Choice%==A goto START_ALL
 if /I %Choice%==S goto REFRESH_ADB
 if /I %Choice%==R goto RESTART_ADB
@@ -75,7 +75,7 @@ goto MENU
 
 :START_ALL
 for /L %%i in (1, 1, %TOTAL_COUNT%) do (
-    start cmd /c emulator -avd !EMULATORS[%%i]! 
+    start cmd /c emulator -avd !EMULATORS[%%i]!
 )
 goto MENU
 
@@ -94,4 +94,4 @@ goto ADB_START
     echo "%USERPROFILE%\AppData\Local\Android\Sdk\emulator"
     echo "to Enviromental Variables."
     timeout /t 10
-) 
+)
